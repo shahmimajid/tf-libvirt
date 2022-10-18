@@ -7,6 +7,18 @@ resource "libvirt_volume" "centos7-qcow2" {
   format = "qcow2"
 }
 
+# get user data info
+data "template_file" "user_data" {
+  template = "${file("${path.module}/cloud_init.cfg")}"
+}
+
+# Use CloudInit to add the instance
+resource "libvirt_cloudinit_disk" "commoninit" {
+  name = "commoninit.iso"
+  pool = "libvirt" # List storage pools using virsh pool-list
+  user_data      = "${data.template_file.user_data.rendered}"
+}
+
 # Define KVM domain to create
 resource "libvirt_domain" "centos7" {
   name   = "centos7"
@@ -20,6 +32,8 @@ resource "libvirt_domain" "centos7" {
   disk {
     volume_id = "${libvirt_volume.centos7-qcow2.id}"
   }
+
+  cloudinit = "${libvirt_cloudinit_disk.commoninit.id}"
 
   console {
     type = "pty"

@@ -94,5 +94,10 @@ resource "libvirt_domain" "kubeworker" {
 
 # Output Server IP
 output "ip" {
-  value = "${libvirt_domain.kubernetes.network_interface.0.addresses.0}"
+  value = "${libvirt_domain.kubemaster.network_interface.0.addresses.0}"
+}
+
+# Output Server IP
+output "ip" {
+  value = "${libvirt_domain.kubeworker.network_interface.0.addresses.0}"
 }

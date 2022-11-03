@@ -35,7 +35,7 @@ resource "libvirt_cloudinit_disk" "commoninit2" {
 }
 
 # Define KVM domain to create
-resource "libvirt_domain" "kubernetes" {
+resource "libvirt_domain" "kubemaster" {
   name   = "kubemaster01"
   memory = "1024"
   vcpu   = 1
@@ -64,7 +64,7 @@ resource "libvirt_domain" "kubernetes" {
 }
 
 # Define KVM domain to create
-resource "libvirt_domain" "kubernetes" {
+resource "libvirt_domain" "kubeworker" {
   name   = "kubeworker01"
   memory = "1024"
   vcpu   = 1

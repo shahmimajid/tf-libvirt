@@ -49,7 +49,7 @@ resource "libvirt_domain" "kubemaster" {
     volume_id = "${libvirt_volume.kubemaster-qcow2.id}"
   }
 
-  cloudinit = "${libvirt_cloudinit_disk.commoninit.id}"
+  cloudinit = "${libvirt_cloudinit_disk.master.id}"
 
   console {
     type = "pty"

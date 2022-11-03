@@ -22,8 +22,8 @@ data "template_file" "user_data" {
 
 
 # Use CloudInit to add the instance
-resource "libvirt_cloudinit_disk" "commoninit" {
-  name = "commoninit.iso"
+resource "libvirt_cloudinit_disk" "master" {
+  name = "master.iso"
   pool = "libvirt" # List storage pools using virsh pool-list
   user_data      = "${data.template_file.user_data.rendered}"
 }
